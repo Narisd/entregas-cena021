@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jonathan & Mirele — Cena 021</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #e8e0d0;
+    font-family: 'Jost', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 40px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 11px;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: #9a8a6a;
+    margin-bottom: 72px;
+    opacity: 0;
+    animation: fadeUp 1s ease .2s forwards;
+  }
+
+  .divider-v {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, #9a8a6a);
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeIn 1s ease .5s forwards;
+  }
+
+  .names {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(42px, 7vw, 68px);
+    letter-spacing: .02em;
+    color: #e8e0d0;
+    text-align: center;
+    line-height: 1.1;
+    opacity: 0;
+    animation: fadeUp 1.2s ease .7s forwards;
+  }
+
+  .amp { color: #c8a84b; }
+
+  .date {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 12px;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+    color: #7a6e5a;
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+  }
+
+  .divider-h {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #9a8a6a, transparent);
+    margin: 48px 0;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.2s forwards;
+  }
+
+  .thumb-wrapper {
+    width: 100%;
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.4s forwards;
+  }
+
+  .thumb-frame {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background: #111;
+    overflow: hidden;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+  }
+
+  .thumb-frame img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: .7;
+    transition: opacity .4s;
+  }
+
+  .thumb-frame:hover img { opacity: .9; }
+
+  .play-btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px; height: 72px;
+    border: 1px solid #c8a84b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .3s;
+  }
+
+  .thumb-frame:hover .play-btn { background: rgba(200,168,75,.15); }
+
+  .play-btn svg {
+    width: 22px; height: 22px;
+    fill: #c8a84b;
+    margin-left: 4px;
+  }
+
+  .play-label {
+    position: absolute;
+    bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 10px;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: #c8a84b;
+    white-space: nowrap;
+  }
+
+  .corner {
+    position: absolute;
+    width: 20px; height: 20px;
+    border-color: #c8a84b;
+    border-style: solid;
+    z-index: 3;
+  }
+  .tl { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+  .tr { top: -1px; right: -1px; border-width: 1px 1px 0 0; }
+  .bl { bottom: -1px; left: -1px; border-width: 0 0 1px 1px; }
+  .br { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+  .buttons {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.8s forwards;
+  }
+
+  .btn-label {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 11px;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: #7a6e5a;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 40px;
+    border: 1px solid;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .3s, color .3s;
+  }
+
+  .btn-gold { border-color: #c8a84b; color: #c8a84b; }
+  .btn-gold:hover { background: #c8a84b; color: #0a0a0a; }
+  .btn-muted { border-color: #3a3530; color: #7a6e5a; }
+  .btn-muted:hover { border-color: #9a8a6a; color: #9a8a6a; }
+
+  .btn svg {
+    width: 13px; height: 13px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.5;
+    flex-shrink: 0;
+  }
+
+  .footer {
+    margin-top: 80px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 10px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: #3a3530;
+    opacity: 0;
+    animation: fadeIn 1s ease 2.2s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (max-width: 480px) {
+    .page { padding: 60px 24px 80px; }
+    .btn-row { flex-direction: column; align-items: center; }
+    .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="logo">Cena 021</div>
+  <div class="divider-v"></div>
+  <div class="names">Jonathan <span class="amp">&</span> Mirele</div>
+  <div class="date">29 · 03 · 2026</div>
+  <div class="divider-h"></div>
+
+  <div class="thumb-wrapper">
+    <a class="thumb-frame" href="https://youtu.be/VRQUvL8amp4" target="_blank">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <img src="https://img.youtube.com/vi/VRQUvL8amp4/maxresdefault.jpg" alt="Filme Jonathan e Mirele">
+      <div class="play-btn">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <div class="play-label">Assistir filme</div>
+    </a>
+  </div>
+
+  <div class="buttons">
+    <div class="btn-label">Seu filme para sempre</div>
+    <div class="btn-row">
+      <a class="btn btn-gold" href="https://drive.google.com/uc?export=download&id=1wRGIXL33K4FjZnlV-1DFPjPdwSzKJJSR" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 15V3m0 12-4-4m4 4 4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>
+        Baixar arquivo original
+      </a>
+      <a class="btn btn-muted" href="https://youtu.be/VRQUvL8amp4" target="_blank">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+        Assistir no YouTube
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">cenazero21.com</div>
+</div>
+</body>
+</html>
