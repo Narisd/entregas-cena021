@@ -9,255 +9,88 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e8e0d0; font-family: 'Jost', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .page { max-width: 780px; margin: 0 auto; padding: 80px 40px 100px; display: flex; flex-direction: column; align-items: center; }
 
-  body {
-    background: #0a0a0a;
-    color: #e8e0d0;
-    font-family: 'Jost', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  .fade { opacity: 0; animation: fadeUp 1s ease forwards; }
+  .f1{animation-delay:.2s} .f2{animation-delay:.5s} .f3{animation-delay:.7s} .f4{animation-delay:1s}
+  .f5{animation-delay:1.3s} .f6{animation-delay:1.6s} .f7{animation-delay:1.9s} .f8{animation-delay:2.2s} .f9{animation-delay:2.5s}
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
-  .page {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 80px 40px 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  .divider-v { width:1px; height:60px; background:linear-gradient(to bottom,transparent,#9a8a6a); margin:48px 0; }
+  .divider-h { width:120px; height:1px; background:linear-gradient(to right,transparent,#9a8a6a,transparent); margin:60px 0; }
+  .divider-full { width:100%; height:1px; background:linear-gradient(to right,transparent,#2a2520,transparent); margin:60px 0; }
 
-  .logo {
-    font-family: 'Jost', sans-serif;
-    font-weight: 200;
-    font-size: 11px;
-    letter-spacing: .35em;
-    text-transform: uppercase;
-    color: #9a8a6a;
-    margin-bottom: 72px;
-    opacity: 0;
-    animation: fadeUp 1s ease .2s forwards;
-  }
+  .logo { font-family:'Jost',sans-serif; font-weight:200; font-size:11px; letter-spacing:.35em; text-transform:uppercase; color:#9a8a6a; }
+  .names { font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic; font-size:clamp(42px,7vw,68px); letter-spacing:.02em; color:#e8e0d0; text-align:center; line-height:1.1; }
+  .amp { color:#c8a84b; }
+  .date { font-family:'Jost',sans-serif; font-weight:200; font-size:12px; letter-spacing:.4em; text-transform:uppercase; color:#7a6e5a; margin-top:16px; }
 
-  .divider-v {
-    width: 1px;
-    height: 60px;
-    background: linear-gradient(to bottom, transparent, #9a8a6a);
-    margin-bottom: 48px;
-    opacity: 0;
-    animation: fadeIn 1s ease .5s forwards;
-  }
+  .proposta { width:100%; display:flex; flex-direction:column; gap:24px; }
+  .section-label { font-family:'Jost',sans-serif; font-weight:200; font-size:10px; letter-spacing:.4em; text-transform:uppercase; color:#c8a84b; }
+  .section-title { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(30px,4vw,46px); color:#e8e0d0; line-height:1.15; }
+  .section-title em { color:#c8a84b; font-style:italic; }
+  .proposta-body { font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic; font-size:20px; line-height:1.85; color:#9a8a6a; border-left:1px solid #2a2520; padding-left:24px; max-width:620px; }
 
-  .names {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(42px, 7vw, 68px);
-    letter-spacing: .02em;
-    color: #e8e0d0;
-    text-align: center;
-    line-height: 1.1;
-    opacity: 0;
-    animation: fadeUp 1.2s ease .7s forwards;
-  }
+  .thumb-wrapper { width:100%; position:relative; }
+  .thumb-frame { position:relative; width:100%; padding-bottom:56.25%; background:#111; overflow:hidden; cursor:pointer; display:block; text-decoration:none; }
+  .thumb-frame img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:.7; transition:opacity .4s; }
+  .thumb-frame:hover img { opacity:.9; }
+  .play-btn { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:72px; height:72px; border:1px solid #c8a84b; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background .3s; }
+  .thumb-frame:hover .play-btn { background:rgba(200,168,75,.15); }
+  .play-btn svg { width:22px; height:22px; fill:#c8a84b; margin-left:4px; }
+  .play-label { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); font-family:'Jost',sans-serif; font-weight:200; font-size:10px; letter-spacing:.35em; text-transform:uppercase; color:#c8a84b; white-space:nowrap; }
+  .corner { position:absolute; width:20px; height:20px; border-color:#c8a84b; border-style:solid; z-index:3; }
+  .tl{top:-1px;left:-1px;border-width:1px 0 0 1px} .tr{top:-1px;right:-1px;border-width:1px 1px 0 0}
+  .bl{bottom:-1px;left:-1px;border-width:0 0 1px 1px} .br{bottom:-1px;right:-1px;border-width:0 1px 1px 0}
 
-  .amp { color: #c8a84b; }
+  .buttons { margin-top:40px; display:flex; flex-direction:column; align-items:center; gap:16px; width:100%; }
+  .btn-label { font-family:'Jost',sans-serif; font-weight:200; font-size:11px; letter-spacing:.35em; text-transform:uppercase; color:#7a6e5a; }
+  .btn-row { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  .btn { display:inline-flex; align-items:center; gap:10px; padding:15px 40px; border:1px solid; background:transparent; font-family:'Jost',sans-serif; font-weight:300; font-size:11px; letter-spacing:.3em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background .3s,color .3s; }
+  .btn-gold{border-color:#c8a84b;color:#c8a84b} .btn-gold:hover{background:#c8a84b;color:#0a0a0a}
+  .btn-muted{border-color:#3a3530;color:#7a6e5a} .btn-muted:hover{border-color:#9a8a6a;color:#9a8a6a}
+  .btn svg { width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:1.5; flex-shrink:0; }
 
-  .date {
-    font-family: 'Jost', sans-serif;
-    font-weight: 200;
-    font-size: 12px;
-    letter-spacing: .4em;
-    text-transform: uppercase;
-    color: #7a6e5a;
-    margin-top: 20px;
-    opacity: 0;
-    animation: fadeUp 1s ease 1s forwards;
-  }
+  .footer-institucional { width:100%; display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .footer-name { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:28px; color:#e8e0d0; letter-spacing:.05em; }
+  .footer-name em { color:#c8a84b; font-style:italic; }
+  .footer-info { font-family:'Jost',sans-serif; font-weight:200; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:#3a3530; text-align:center; line-height:2.2; }
 
-  .divider-h {
-    width: 120px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #9a8a6a, transparent);
-    margin: 48px 0;
-    opacity: 0;
-    animation: fadeIn 1s ease 1.2s forwards;
-  }
-
-  .thumb-wrapper {
-    width: 100%;
-    position: relative;
-    opacity: 0;
-    animation: fadeUp 1s ease 1.4s forwards;
-  }
-
-  .thumb-frame {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%;
-    background: #111;
-    overflow: hidden;
-    cursor: pointer;
-    display: block;
-    text-decoration: none;
-  }
-
-  .thumb-frame img {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    opacity: .7;
-    transition: opacity .4s;
-  }
-
-  .thumb-frame:hover img { opacity: .9; }
-
-  .play-btn {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 72px; height: 72px;
-    border: 1px solid #c8a84b;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background .3s;
-  }
-
-  .thumb-frame:hover .play-btn { background: rgba(200,168,75,.15); }
-
-  .play-btn svg {
-    width: 22px; height: 22px;
-    fill: #c8a84b;
-    margin-left: 4px;
-  }
-
-  .play-label {
-    position: absolute;
-    bottom: 20px; left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Jost', sans-serif;
-    font-weight: 200;
-    font-size: 10px;
-    letter-spacing: .35em;
-    text-transform: uppercase;
-    color: #c8a84b;
-    white-space: nowrap;
-  }
-
-  .corner {
-    position: absolute;
-    width: 20px; height: 20px;
-    border-color: #c8a84b;
-    border-style: solid;
-    z-index: 3;
-  }
-  .tl { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
-  .tr { top: -1px; right: -1px; border-width: 1px 1px 0 0; }
-  .bl { bottom: -1px; left: -1px; border-width: 0 0 1px 1px; }
-  .br { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
-
-  .buttons {
-    margin-top: 48px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    opacity: 0;
-    animation: fadeUp 1s ease 1.8s forwards;
-  }
-
-  .btn-label {
-    font-family: 'Jost', sans-serif;
-    font-weight: 200;
-    font-size: 11px;
-    letter-spacing: .35em;
-    text-transform: uppercase;
-    color: #7a6e5a;
-  }
-
-  .btn-row {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 40px;
-    border: 1px solid;
-    background: transparent;
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 11px;
-    letter-spacing: .3em;
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background .3s, color .3s;
-  }
-
-  .btn-gold { border-color: #c8a84b; color: #c8a84b; }
-  .btn-gold:hover { background: #c8a84b; color: #0a0a0a; }
-  .btn-muted { border-color: #3a3530; color: #7a6e5a; }
-  .btn-muted:hover { border-color: #9a8a6a; color: #9a8a6a; }
-
-  .btn svg {
-    width: 13px; height: 13px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.5;
-    flex-shrink: 0;
-  }
-
-  .footer {
-    margin-top: 80px;
-    font-family: 'Jost', sans-serif;
-    font-weight: 200;
-    font-size: 10px;
-    letter-spacing: .3em;
-    text-transform: uppercase;
-    color: #3a3530;
-    opacity: 0;
-    animation: fadeIn 1s ease 2.2s forwards;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @media (max-width: 480px) {
-    .page { padding: 60px 24px 80px; }
-    .btn-row { flex-direction: column; align-items: center; }
-    .btn { width: 100%; justify-content: center; }
+  @media (max-width:480px) {
+    .page{padding:60px 24px 80px}
+    .btn-row{flex-direction:column;align-items:center}
+    .btn{width:100%;justify-content:center}
   }
 </style>
 </head>
 <body>
 <div class="page">
-  <div class="logo">Cena 021</div>
-  <div class="divider-v"></div>
-  <div class="names">Jonathan <span class="amp">&</span> Mirele</div>
-  <div class="date">29 · 03 · 2026</div>
-  <div class="divider-h"></div>
 
-  <div class="thumb-wrapper">
-    <a class="thumb-frame" href="https://youtu.be/VRQUvL8amp4" target="_blank">
+  <!-- HERO -->
+  <div class="logo fade f1">Cena 021</div>
+  <div class="divider-v fade f2"></div>
+  <div class="names fade f3">Jonathan <span class="amp">&</span> Mirele</div>
+  <div class="date fade f4">29 · 03 · 2026</div>
+
+  <div class="divider-h fade f5"></div>
+
+  <!-- PROPOSTA -->
+  <div class="proposta fade f5">
+    <div class="section-label">A proposta</div>
+    <p class="proposta-body">Jonathan e Mirele se encontraram em São Paulo num daqueles dias que a gente não esquece. O filme nasceu daí.</p>
+  </div>
+
+  <div class="divider-full fade f6"></div>
+
+  <!-- VIDEO -->
+  <div class="thumb-wrapper fade f6">
+    <a class="thumb-frame" href="https://youtu.be/-NaDVpyo4As" target="_blank">
       <div class="corner tl"></div>
       <div class="corner tr"></div>
       <div class="corner bl"></div>
       <div class="corner br"></div>
-      <img src="https://img.youtube.com/vi/VRQUvL8amp4/maxresdefault.jpg" alt="Filme Jonathan e Mirele">
+      <img src="https://img.youtube.com/vi/-NaDVpyo4As/maxresdefault.jpg" alt="Filme Jonathan e Mirele">
       <div class="play-btn">
         <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
       </div>
@@ -265,21 +98,35 @@
     </a>
   </div>
 
-  <div class="buttons">
+  <div class="buttons fade f7">
     <div class="btn-label">Aonde quer que fores</div>
     <div class="btn-row">
-      <a class="btn btn-gold" href="https://drive.google.com/uc?export=download&id=1wRGIXL33K4FjZnlV-1DFPjPdwSzKJJSR" target="_blank">
+      <a class="btn btn-gold" href="https://drive.google.com/uc?export=download&id=12YFcUDupdkYSTWot2pWBBgyfzbbaJMbo" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M12 15V3m0 12-4-4m4 4 4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>
         Baixar arquivo original
       </a>
-      <a class="btn btn-muted" href="https://youtu.be/VRQUvL8amp4" target="_blank">
+      <a class="btn btn-muted" href="https://youtu.be/-NaDVpyo4As" target="_blank">
         <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
         Assistir no YouTube
       </a>
     </div>
   </div>
 
-  <div class="footer">cenazero21.com</div>
+  <div class="divider-full fade f8"></div>
+
+  <!-- FOOTER -->
+  <div class="footer-institucional fade f8">
+    <div class="footer-name">Cena <em>021</em></div>
+    <div class="footer-info">
+      Recreio dos Bandeirantes · Rio de Janeiro<br>
+      Estúdio Audiovisual Cinematográfico<br>
+      cenazero21.com
+    </div>
+    <a class="btn btn-muted" href="https://cenazero21.com" target="_blank" style="margin-top:8px;">
+      Conheça nosso trabalho
+    </a>
+  </div>
+
 </div>
 </body>
 </html>
